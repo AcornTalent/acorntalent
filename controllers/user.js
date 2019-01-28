@@ -3,6 +3,7 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const passport = require('passport');
 const User = require('../models/User');
+const Test = require('../models/Test');
 const toTitleCase = require('../utils/toTitleCase');
 
 const randomBytesAsync = promisify(crypto.randomBytes);
@@ -121,8 +122,11 @@ exports.postSignup = (req, res, next) => {
  * Dashboard page (shows all of user's saved tests).
  */
 exports.getDashboard = (req, res) => {
-  res.render('account/dashboard', {
-    title: 'Dashboard'
+  Test.find((err, docs) => {
+    res.render('account/dashboard', {
+      title: 'Dashboard',
+      tests: docs
+    });
   });
 };
 
