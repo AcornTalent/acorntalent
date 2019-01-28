@@ -117,6 +117,16 @@ exports.postSignup = (req, res, next) => {
 };
 
 /**
+ * GET /dashboard
+ * Dashboard page (shows all of user's saved tests).
+ */
+exports.getDashboard = (req, res) => {
+  res.render('account/dashboard', {
+    title: 'Dashboard'
+  });
+};
+
+/**
  * GET /account
  * Profile page.
  */

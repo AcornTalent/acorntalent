@@ -111,7 +111,7 @@ app.use((req, res, next) => {
     && !req.path.match(/\./)) {
     req.session.returnTo = req.originalUrl;
   } else if (req.user
-    && (req.path === '/account' || req.path.match(/^\/api/))) {
+    && (req.path === '/account' || req.path === '/dashboard' || req.path.match(/^\/api/))) {
     req.session.returnTo = req.originalUrl;
   }
   next();
@@ -137,6 +137,7 @@ app.get('/signup', userController.getSignup);
 app.post('/signup', userController.postSignup);
 app.get('/contact', contactController.getContact);
 app.post('/contact', contactController.postContact);
+app.get('/dashboard', passportConfig.isAuthenticated, userController.getDashboard);
 app.get('/account', passportConfig.isAuthenticated, userController.getAccount);
 app.post('/account/profile', passportConfig.isAuthenticated, userController.postUpdateProfile);
 app.post('/account/password', passportConfig.isAuthenticated, userController.postUpdatePassword);
