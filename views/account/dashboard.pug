@@ -8,7 +8,7 @@ block content
   .row
     for test in tests
       .col-md-6
-        h2 test.name
-        p test.description
+        h2=test.name
+        p=test.description
         p
           a.btn.btn-raised(href='#', role='button') Continue »
