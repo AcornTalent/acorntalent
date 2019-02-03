@@ -96,7 +96,8 @@ exports.postSignup = (req, res, next) => {
 
   const user = new User({
     email: req.body.email,
-    password: req.body.password
+    password: req.body.password,
+    isBusiness: false
   });
 
   User.findOne({ email: req.body.email }, (err, existingUser) => {
@@ -158,6 +159,7 @@ exports.postUpdateProfile = (req, res, next) => {
   User.findById(req.user.id, (err, user) => {
     if (err) { return next(err); }
     user.email = req.body.email || '';
+    user.isBusiness = req.body.isBusiness || '';
     user.profile.name = req.body.name || '';
     user.profile.gender = req.body.gender || '';
     user.profile.location = req.body.location || '';

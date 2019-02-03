@@ -35,6 +35,7 @@ const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
 const testController = require('./controllers/test');
+const questionController = require('./controllers/question');
 
 /**
  * API keys and Passport configuration.
@@ -146,6 +147,12 @@ app.post('/account/delete', passportConfig.isAuthenticated, userController.postD
 app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
 app.post('/tests/new', testController.postNewTest); // TECHNICALLY ANY USER
 // WITH LINK CAN ADD TEST UNLESS AUTH MIDDLEWARE IS ADDED
+app.get('/test/:testID', passportConfig.isAuthenticated, testController.getCurrTest);
+app.get('/create/test', passportConfig.isAuthenticated, passportConfig.isBusiness, testController.getCreateTest);
+app.get('/create/question', passportConfig.isAuthenticated, passportConfig.isBusiness, questionController.getCreateQuestion);
+// by default, isBusiness in user schema is set to false
+app.post('/create/question', passportConfig.isAuthenticated, passportConfig.isBusiness, questionController.addQuestion);
+
 
 /**
  * API examples routes.

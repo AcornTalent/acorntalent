@@ -195,6 +195,7 @@ passport.use(new GitHubStrategy({
           user.profile.picture = user.profile.picture || profile._json.avatar_url;
           user.profile.location = user.profile.location || profile._json.location;
           user.profile.website = user.profile.website || profile._json.blog;
+          user.isBusiness = false;
           user.save((err) => {
             req.flash('info', { msg: 'GitHub account has been linked.' });
             done(err, user);
@@ -308,6 +309,7 @@ passport.use(new GoogleStrategy({
           user.profile.name = user.profile.name || profile.displayName;
           user.profile.gender = user.profile.gender || profile._json.gender;
           user.profile.picture = user.profile.picture || profile._json.image.url;
+          user.isBusiness = false;
           user.save((err) => {
             req.flash('info', { msg: 'Google account has been linked.' });
             done(err, user);
@@ -368,6 +370,7 @@ passport.use(new LinkedInStrategy({
           user.profile.location = user.profile.location || profile._json.location.name;
           user.profile.picture = user.profile.picture || profile._json.pictureUrl;
           user.profile.website = user.profile.website || profile._json.publicProfileUrl;
+          user.isBusiness = false;
           user.save((err) => {
             if (err) { return done(err); }
             req.flash('info', { msg: 'LinkedIn account has been linked.' });
@@ -593,6 +596,18 @@ exports.isAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
+  res.redirect('/login');
+};
+
+/**
+ * Middleware to check whether user is recruiter or competitor
+ */
+exports.isBusiness = (req, res, next) => {
+  console.log(req.user.isBusiness);
+  if (req.user.isBusiness) {
+    return next();
+  }
+  req.flash('success', { msg: 'Only businesses can access this feature.' });
   res.redirect('/login');
 };
 

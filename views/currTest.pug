@@ -1,0 +1,9 @@
+extends layout
+
+block content
+
+  h1=test.name
+  p.lead=test.description
+  hr
+  .row
+    a.btn.btn-raised(href='test/'+test._id+'/q/'+test.questionsID[0], role='button') Begin »

@@ -34,6 +34,12 @@
                 a(href='/account') My Account
               li.dropdown-item
                 a(href='/dashboard') My Tests
+              if user.isBusiness
+                li.dropdown-item
+                  a(href='/create/test') Create Test
+              if user.isBusiness
+                li.dropdown-item
+                  a(href='/create/question') Create Question
               li.divider.dropdown-item
               li.dropdown-item
                 a(href='/logout') Logout
