@@ -9,23 +9,23 @@ block content
     .form-group.row
       label.col-md-3.col-form-label.font-weight-bold.text-right(for='question') Question
       .col-md-7
-        input.form-control(type='text', name='question', id='question')
+        input.form-control(type='text', name='question', id='question', required)
     .form-group.row
       label.col-md-3.col-form-label.font-weight-bold.text-right(for='options') Option 1
       .col-md-7
-        input.form-control(type='text', name='option1', id='option1')
+        input.form-control(type='text', name='option1', id='option1', required)
     .form-group.row
       label.col-md-3.col-form-label.font-weight-bold.text-right(for='options') Option 2
       .col-md-7
-        input.form-control(type='text', name='option2', id='option2')
+        input.form-control(type='text', name='option2', id='option2', required)
     .form-group.row
       label.col-md-3.col-form-label.font-weight-bold.text-right(for='options') Option 3
       .col-md-7
-        input.form-control(type='text', name='option3', id='option3')
+        input.form-control(type='text', name='option3', id='option3', required)
     .form-group.row
       label.col-md-3.col-form-label.font-weight-bold.text-right(for='options') Option 4
       .col-md-7
-        input.form-control(type='text', name='option4', id='option4')
+        input.form-control(type='text', name='option4', id='option4', required)
     .form-group.row
       label.col-md-3.col-form-label.font-weight-bold.text-right Correct Answer
       .col-sm-6
@@ -41,9 +41,8 @@ block content
         label.radio.col-sm-3
           input(type='radio', name='correctAnswers', value='four', data-toggle='radio')
           span Option 4
-
-  .form-group
-    .offset-sm-3.col-md-7.pl-2
-      button.btn.btn.btn-primary(type='submit')
-        i.fas.fa-pencil-alt.fa-sm
-        | Add Question
+    .form-group
+      .offset-sm-3.col-md-7.pl-2
+        button.btn.btn.btn-primary(type='submit')
+          i.fas.fa-pencil-alt.fa-sm
+          | Add Question

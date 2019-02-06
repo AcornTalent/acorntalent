@@ -35,24 +35,31 @@ exports.getCreateQuestion = (req, res) => {
  */
 exports.addQuestion = (req, res, next) => {
 
-  Question.findById(req.question.question, (err, question) => {
+  console.log(req.body);
+
+  Question.findOne({question: req.body.question}, (err, existingQuestion) => {
     if (err) { return next(err); }
-    question.question = req.body.question || '';
+
+    // Question doesn't yet exist
     var options = [req.body.option1, req.body.option2, req.body.option3, req.body.option4];
-    question.options = options || '';
-    console.log(options);
-    console.log(req.body.correctAnswers);
-    question.correctAnswers = req.body.correctAnswers || '';
-    question.save((err) => {
-      if (err) {
-        if (err.code === 11000) {
-          req.flash('errors', { msg: 'That questions (exact wording) already exists' });
-          return res.redirect('/create/question');
-        }
-        return next(err);
+
+    const question = new Question({
+      question: req.body.question || '',
+      options: options || '',
+      correctAnswers: req.body.correctAnswers || ''
+    });
+
+    Question.findOne({ question: req.body.question }, (err, existingQuestion) => {
+      if (err) { return next(err); }
+      if (existingQuestion) {
+        req.flash('errors', { msg: 'That question (exact wording) already exists.' });
+        return res.redirect('/create/question');
       }
-      req.flash('success', { msg: 'Question successfully created.' });
-      res.redirect('/create/question');
+      question.save((err) => {
+        if (err) { return next(err); }
+        req.flash('success', { msg: 'Question successfully created.' });
+        res.redirect('/create/question');
+      });
     });
   });
 };
