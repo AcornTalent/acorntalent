@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>mobile-icon-white</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M11,19.8292943 C9.83480763,19.4174579 9,18.3062188 9,17 C9,15.3431458 10.3431458,14 12,14 C13.6568542,14 15,15.3431458 15,17 C15,18.3062188 14.1651924,19.4174579 13,19.8292943 L13,20 L16,20 C16.5522847,20 17,19.5522847 17,19 L17,5 C17,4.44771525 16.5522847,4 16,4 L8,4 C7.44771525,4 7,4.44771525 7,5 L7,19 C7,19.5522847 7.44771525,20 8,20 C8.55228475,20 9,20.4477153 9,21 C9,21.5522847 8.55228475,22 8,22 C6.34314575,22 5,20.6568542 5,19 L5,5 C5,3.34314575 6.34314575,2 8,2 L16,2 C17.6568542,2 19,3.34314575 19,5 L19,19 C19,20.6568542 17.6568542,22 16,22 L12,22 C11.4477153,22 11,21.5522847 11,21 L11,19.8292943 Z M12,18 C12.5522847,18 13,17.5522847 13,17 C13,16.4477153 12.5522847,16 12,16 C11.4477153,16 11,16.4477153 11,17 C11,17.5522847 11.4477153,18 12,18 Z" id="path-1"></path>
+    </defs>
+    <g id="mobile-icon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <use id="icon" fill="#FFFFFF" fill-rule="nonzero" xlink:href="#path-1"></use>
+    </g>
+</svg>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="80px" height="40px" viewBox="0 0 80 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>Logotypes/logo-tnw-color</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="8.80026106%" y1="26.5033392%" x2="38.989972%" y2="40.6192636%" id="linearGradient-1">
+            <stop stop-color="#C7140B" offset="0%"></stop>
+            <stop stop-color="#FF3C1F" offset="75%"></stop>
+        </linearGradient>
+        <linearGradient x1="-4.89831051%" y1="41.3855417%" x2="87.0846345%" y2="60.3351357%" id="linearGradient-2">
+            <stop stop-color="#C7140B" offset="0%"></stop>
+            <stop stop-color="#FF3C1F" offset="75%"></stop>
+        </linearGradient>
+        <linearGradient x1="50.0007037%" y1="99.9992857%" x2="50.0007037%" y2="2.6770525e-10%" id="linearGradient-3">
+            <stop stop-color="#FF3C1F" offset="0%"></stop>
+            <stop stop-color="#FF3C1F" offset="85%"></stop>
+            <stop stop-color="#FF7700" offset="95%"></stop>
+        </linearGradient>
+        <linearGradient x1="10.1540872%" y1="54.0792857%" x2="106.955219%" y2="38.0485714%" id="linearGradient-4">
+            <stop stop-color="#FF3C1F" offset="0%"></stop>
+            <stop stop-color="#FF3C1F" offset="70%"></stop>
+            <stop stop-color="#C7140B" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50.0003331%" y1="100%" x2="50.0003331%" y2="0%" id="linearGradient-5">
+            <stop stop-color="#FF3C1F" offset="0%"></stop>
+            <stop stop-color="#FF3C1F" offset="85%"></stop>
+            <stop stop-color="#FF7700" offset="95%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Logotypes/logo-tnw" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="logo" transform="translate(1.000000, 8.000000)" fill-rule="nonzero">
+            <path d="M68.7589467,0.00085106383 L64.9914222,11.0514043 L62.6697867,2.04340426 C62.1434489,0 61.4663622,0 61.08102,0 C61.08102,0 60.2360733,0.000170212766 59.39164,0.240510638 L57.5711889,8.26519149 L61.08564,23.8306383 L68.1011956,23.8306383 L76.97228,0.00085106383 L68.7589467,0.00085106383 Z" id="Shape" fill="url(#linearGradient-1)"></path>
+            <path d="M51.0468933,11.0789787 L48.1648689,2.06229787 C47.5488689,0.135319149 46.6649089,0.000170212766 46.1295022,0.000170212766 C46.1295022,0.000170212766 45.1242244,0.000170212766 44.0582022,0.240510638 L44.0582022,14.2440851 L47.8226467,23.8302979 L48.9234044,23.8304681 L52.6062289,23.5901277 L51.0468933,11.0789787 Z" id="Shape" fill="url(#linearGradient-2)"></path>
+            <path d="M61.08102,0.00136170206 L54.7114089,0.00289361702 C54.2352067,0.00289361702 52.976,0.00136170213 52.6289867,2.04340426 L48.9234044,23.8306383 L54.7310867,23.8306383 L59.5085089,2.04340426 C59.9564778,0.00085106383 60.9386556,0.00136170213 61.08102,0.00136170206 Z" id="Shape" fill="url(#linearGradient-3)"></path>
+            <path d="M22.4983733,0.240510638 C22.4983733,0.240510638 21.4717067,0.00085106383 20.4452111,0.00085106383 L0,0.00085106383 L2.53449778,6.8093617 L8.80948444,6.8093617 L8.80948444,23.8306383 L15.6539289,23.8306383 L15.6539289,6.8093617 L22.4983733,6.8093617 L22.4983733,0.240510638 Z" id="Shape" fill="url(#linearGradient-4)"></path>
+            <path d="M39.6093133,0.000170212766 C38.4755311,0.000170212766 37.55598,0.915404255 37.55598,2.04340426 L37.55598,10.6348936 L30.1742467,1.35029787 C29.5022933,0.467574468 28.4220689,0.00459574468 27.4484467,0.00459574468 L20.44504,0.0010212766 C20.44504,0.0010212766 22.15598,0.0010212766 22.15598,2.04374468 L22.15598,23.8308085 L29.0004244,23.8308085 L29.0004244,10.8478298 L38.3150289,22.5642553 C38.99588,23.4039149 39.9958533,23.8369362 41.0021578,23.8302979 L44.4004244,23.8302979 L44.4004244,2.04306383 C44.4004244,0.836085106 45.1740178,0 46.1296733,0 L39.6093133,0.000170212766 Z" id="Shape" fill="url(#linearGradient-5)"></path>
+        </g>
+    </g>
+</svg>
