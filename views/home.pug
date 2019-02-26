@@ -38,14 +38,34 @@ html(data-wf-page='5c564e3464242a0739dabc93', data-wf-site='5c564e3464242a5323da
 					a.brand.w-nav-brand.w--current(href='/')
 						img.logo-icon(src='images/logo.png', srcset='images/logo-p-500.png 500w, images/logo-p-800.png 800w, images/logo-p-1080.png 1080w, images/logo-p-1600.png 1600w, images/logo-p-2000.png 2000w, images/logo.png 2304w', sizes='(max-width: 479px) 4px, (max-width: 767px) 7vw, (max-width: 991px) 17vw, 170.03125px', alt='')
 					.navigation
-						.menu-button.w-nav-button
-							.w-icon-nav-menu
-							a.button.small.ghost.w-button.w--current(href='dashboard') My Profile
 						a.button.small.ghost.w-button.w--current(href='') Home
-						a.button.small.ghost.w-button.w--current(href='') About
 						a.button.small.ghost.w-button(href='http://www.acorntalent.io/CallofData/apply.html') Datathon
-						a.button.small.ghost.w-button(href='components/blog-3.html') Dashboard
-						a.button.small.ghost.w-button.w--current(href='account') My Profile
+						if !user
+							a.button.small.ghost.w-button.w--current(href='/login') Login
+							a.button.small.ghost.w-button.w--current(href='/signup') Create Account
+						else
+							ul.nav.navbar-nav.ml-auto
+								li.dropdown(class=(title === 'Account Management') ? 'active' : undefined).nav-item
+									a.dropdown-toggle.nav-link(href='#', data-toggle='dropdown')
+										if user.profile.picture
+											img(src=user.profile.picture)
+										else
+											img(src=user.gravatar(60))
+										span= user.profile.name || user.email || user.id
+										i.caret
+									ul.dropdown-menu
+										li.dropdown-item
+											a(href='/account') My Account
+										li.dropdown-item
+											a(href='/dashboard') My Tests
+										if user.isBusiness
+											li.dropdown-item
+												a(href='/create/test') Create Test
+										if user.isBusiness
+											li.dropdown-item
+												a(href='/create/question') Create Question
+										li.dropdown-item
+											a(href='/logout') Logout
 			.flex-parent.hero-intro-section
 				.wrapper
 					.side-feature.mobile-reversed
