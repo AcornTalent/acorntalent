@@ -4,7 +4,7 @@ doctype html
 html(data-wf-page='5c564e3464242a0739dabc93', data-wf-site='5c564e3464242a5323dabc8f')
 	head
 		meta(charset='utf-8')
-		title Maker - Webflow HTML website template
+		title Acorn Talent | Home
 		meta(content='width=device-width, initial-scale=1', name='viewport')
 		meta(content='Webflow', name='generator')
 		link(href='css/normalize.css', rel='stylesheet', type='text/css')
@@ -55,17 +55,17 @@ html(data-wf-page='5c564e3464242a0739dabc93', data-wf-site='5c564e3464242a5323da
 										i.caret
 									ul.dropdown-menu
 										li.dropdown-item
-											a(href='/account') My Account
+											a.button.small.ghost.w-button.w--current(href='/account') My Account
 										li.dropdown-item
-											a(href='/dashboard') My Tests
+											a.button.small.ghost.w-button.w--current(href='/dashboard') Dashboard
 										if user.isBusiness
 											li.dropdown-item
-												a(href='/create/test') Create Test
+												a.button.small.ghost.w-button.w--current(href='/create/test') Create Test
 										if user.isBusiness
 											li.dropdown-item
-												a(href='/create/question') Create Question
+												a.button.small.ghost.w-button.w--current(href='/create/question') Create Question
 										li.dropdown-item
-											a(href='/logout') Logout
+											a.button.small.ghost.w-button.w--current(href='/logout') Log Out
 			.flex-parent.hero-intro-section
 				.wrapper
 					.side-feature.mobile-reversed

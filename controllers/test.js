@@ -80,3 +80,92 @@ exports.postNewTest = (req, res, next) => {
     });
   });
 };
+
+/**
+ * POST /addQuestion
+ * Add a new question.
+ */
+exports.addQuestions = (req, res, next) => {
+  /* Serverside code to validate user input
+  const errors = req.validationErrors();
+
+  if (errors) {
+    req.flash('errors', errors);
+    return res.redirect('/dashboard');
+  }
+  */
+
+
+  console.log(req.body);
+
+  Test.findOne({ name: req.body.name }, (err, existingTest) => {
+
+
+    Test.findOne({ name: req.body.name }, (err, existingTest) => {
+      if (err) { return next(err); }
+      if (!existingTest) {
+        existingTest = new Test({
+          name: req.body.name,
+          description: req.body.description
+        });
+      }
+      if(existingTest.questionsID === undefined || array.length == 0)
+      {
+        for(var values in req.body.isAdded)
+        {
+          console.log(typeof(req.body.isAdded))
+          if(!values.equals('notAdded') && equals(questionID, values))
+          {
+            for(var questionID in existingTest.questionsID)
+            {
+              console.log('yay');
+              break;
+            }
+            console.log('yay');
+          }
+
+        }
+      }
+      else {
+        console.log('nah');
+      }
+      existingTest.save((err) => {
+        if (err) { return next(err); }
+        req.flash('success', { msg: 'Test saved.' });
+        res.redirect('/dashboard');
+      });
+    });
+
+/*
+    if (err) { return next(err); }
+    if (!existingTest) {
+      existingTest = new Test({
+        name: req.body.name,
+        description: req.body.description,
+        questionsID: req.body.questionsID,
+        optionsID: req.body.optionsID,
+        correctAnswersID: req.body.correctAnswersID
+        });
+      }
+    if(existingTest.questionsID === undefined || array.length == 0)
+    {
+      for(var questionID in existingTest.questionsID)
+      {
+        for(var index in req.body.isAdded)
+        {
+          if(questionID == req.body.isAdded[index])
+          {
+            console.log('yay!');
+          }
+        }
+      }
+    }
+    else {
+      console.log('nah');
+    }
+    existingTest.save((err) => {
+      if (err) { return next(err); }
+    });
+    return next(); */
+  });
+};

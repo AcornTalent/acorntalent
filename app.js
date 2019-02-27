@@ -149,6 +149,7 @@ app.post('/tests/new', testController.postNewTest); // TECHNICALLY ANY USER
 // WITH LINK CAN ADD TEST UNLESS AUTH MIDDLEWARE IS ADDED
 app.get('/test/:testID', passportConfig.isAuthenticated, testController.getCurrTest);
 app.get('/create/test', passportConfig.isAuthenticated, passportConfig.isBusiness, testController.getCreateTest);
+app.post('/create/test/', passportConfig.isAuthenticated, testController.addQuestions);
 app.get('/create/question', passportConfig.isAuthenticated, passportConfig.isBusiness, questionController.getCreateQuestion);
 // by default, isBusiness in user schema is set to false
 app.post('/create/question', passportConfig.isAuthenticated, passportConfig.isBusiness, questionController.addQuestion);
