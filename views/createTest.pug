@@ -15,22 +15,28 @@ block content
         label.col-md-5.col-form-label.font-weight-bold.text-right(for='title') Test Description
         .col-md-7
           input.form-control(type='text', name='description', id='description')
+      - var i = 0;
       for question in questions
-        .col-md-6
-          h2=question.question
-          p='1. ' + question.options[0]
-          p='2. ' + question.options[1]
-          p='3. ' + question.options[2]
-          p='4. ' + question.options[3]
-          p
-          .form-group.row
+        .form-group.row
+          .col-md-6
+            h2=question.question
+            if(!(question.options[0] === undefined))
+              p='1. ' + question.options[0]
+            if(!(question.options[0] === undefined))
+              p='2. ' + question.options[1]
+            if(!(question.options[0] === undefined))
+              p='3. ' + question.options[2]
+            if(!(question.options[0] === undefined))
+              p='4. ' + question.options[3]
+            p
             .col-sm-6
               label.radio.col-sm-3
-                input(type='radio', name='isAdded', value=question._id, data-toggle='radio')
+                input(type='radio', name='question'+i, value = question._id, data-toggle='radio')
                 span Added
               label.radio.col-sm-3
-                input(type='radio', name='isAdded', value='notAdded', data-toggle='radio')
+                input(type='radio', name='question'+i, value = -1, data-toggle='radio')
                 span Not Added
+        - i++;
       .form-group
         .offset-sm-3.col-md-7.pl-2
           button.btn.btn-primary(type='submit')

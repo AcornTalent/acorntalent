@@ -7,3 +7,13 @@ exports.index = (req, res) => {
     title: 'Home'
   });
 };
+
+/**
+ * GET *
+ * Error 404 page.
+ */
+exports.noPage = (req, res) => {
+  res.render('404', {
+    title: 'Page Not Found'
+  });
+};

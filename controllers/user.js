@@ -149,12 +149,16 @@ exports.postUpdateProfile = (req, res, next) => {
   req.assert('email', 'Please enter a valid email address.').isEmail();
   req.sanitize('email').normalizeEmail({ gmail_remove_dots: false });
 
+  console.log(req.body);
+
   const errors = req.validationErrors();
 
   if (errors) {
     req.flash('errors', errors);
     return res.redirect('/account');
   }
+
+  console.log(req.body);
 
   User.findById(req.user.id, (err, user) => {
     if (err) { return next(err); }

@@ -2,8 +2,12 @@ extends layout
 
 block content
 
+  p
   h1=test.name
   p.lead=test.description
   hr
   .row
-    a.btn.btn-raised(href='test/'+test._id+'/q/'+test.questionsID[0], role='button') Begin »
+    if(!(test.questionsID === undefined || test.questionsID.size == 0))
+      a.btn.btn-raised(href='test/'+test._id+'/q/'+test.questionsID[0], role='button') Begin »
+    else
+      p No questions in this test yet! Please check back later or contact us at support@acorntalent.io

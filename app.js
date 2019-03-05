@@ -254,6 +254,12 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 /**
+  * The 404 route, because nothing else has responded. Should always be
+  * last route.
+  */
+app.get('*', homeController.noPage);
+
+/**
  * Start Express server.
  */
 app.listen(app.get('port'), () => {

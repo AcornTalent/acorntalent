@@ -95,9 +95,6 @@ exports.addQuestions = (req, res, next) => {
   }
   */
 
-
-  console.log(req.body);
-
   Test.findOne({ name: req.body.name }, (err, existingTest) => {
 
 
@@ -108,12 +105,31 @@ exports.addQuestions = (req, res, next) => {
           name: req.body.name,
           description: req.body.description
         });
+        req.flash('Failed', { msg: 'Test already exists. You may modify the test by making changes and pressing save.' }); // not working fix this
       }
-      if(existingTest.questionsID === undefined || array.length == 0)
+      console.log(req.body);
+      if(existingTest.questionsID === undefined || existingTest.questionsID.length == 0)
       {
+        existingTest.questionsID = [];
+        var questionName;
+        for(var i = 0;; i++)
+        {
+          questionName = 'question'+i;
+          if(!(req.body[questionName] === undefined))
+          {
+            console.log(req.body[questionName]);
+            if(req.body[questionName] != '-1')
+            {
+              existingTest.questionsID.push(req.body[questionName]);
+            }
+          }
+          else break; // this logic prevents the code from running synchrously
+          // despite req.body[questionName] being non existant
+        }
+      }
+      else {
         for(var values in req.body.isAdded)
         {
-          console.log(typeof(req.body.isAdded))
           if(!values.equals('notAdded') && equals(questionID, values))
           {
             for(var questionID in existingTest.questionsID)
@@ -125,9 +141,6 @@ exports.addQuestions = (req, res, next) => {
           }
 
         }
-      }
-      else {
-        console.log('nah');
       }
       existingTest.save((err) => {
         if (err) { return next(err); }

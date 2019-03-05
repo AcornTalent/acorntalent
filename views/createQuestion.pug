@@ -21,16 +21,16 @@ block content
     .form-group.row
       label.col-md-3.col-form-label.font-weight-bold.text-right(for='options') Option 3
       .col-md-7
-        input.form-control(type='text', name='option3', id='option3', required)
+        input.form-control(type='text', name='option3', id='option3')
     .form-group.row
       label.col-md-3.col-form-label.font-weight-bold.text-right(for='options') Option 4
       .col-md-7
-        input.form-control(type='text', name='option4', id='option4', required)
+        input.form-control(type='text', name='option4', id='option4')
     .form-group.row
       label.col-md-3.col-form-label.font-weight-bold.text-right Correct Answer
       .col-sm-6
         label.radio.col-sm-3
-          input(type='radio', name='correctAnswers', value='one', data-toggle='radio')
+          input(type='radio', name='correctAnswers', value='one', data-toggle='radio', required)
           span Option 1
         label.radio.col-sm-3
           input(type='radio', name='correctAnswers', value='two', data-toggle='radio')
