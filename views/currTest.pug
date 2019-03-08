@@ -8,6 +8,6 @@ block content
   hr
   .row
     if(!(test.questionsID === undefined || test.questionsID.size == 0))
-      a.btn.btn-raised(href='test/'+test._id+'/q/'+test.questionsID[0], role='button') Begin »
+      a.btn.btn-raised(href='/test/'+test._id+'/0/q/'+test.questionsID[0], role='button') Begin »
     else
       p No questions in this test yet! Please check back later or contact us at support@acorntalent.io

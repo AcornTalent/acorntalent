@@ -9,6 +9,9 @@ const userSchema = new mongoose.Schema({
   passwordResetExpires: Date,
   savedTestsID: Object,
   isBusiness: Boolean,
+  responses: Object,
+  testsTaken: Object,
+  scores: Object,
 
   snapchat: String,
   facebook: String,

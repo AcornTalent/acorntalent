@@ -3,6 +3,7 @@ const nodemailer = require('nodemailer');
 const passport = require('passport');
 const Test = require('../models/Test');
 const Question = require('../models/Question');
+const User = require('../models/User');
 const toTitleCase = require('../utils/toTitleCase');
 
 /**
@@ -21,7 +22,7 @@ exports.getTests = (req, res) => {
 };
 
 /**
- * GET /currTest
+ * GET /test/:testID
  * Pull up current test
 */
 exports.getCurrTest = (req, res) => {
@@ -96,58 +97,56 @@ exports.addQuestions = (req, res, next) => {
   */
 
   Test.findOne({ name: req.body.name }, (err, existingTest) => {
-
-
-    Test.findOne({ name: req.body.name }, (err, existingTest) => {
-      if (err) { return next(err); }
-      if (!existingTest) {
-        existingTest = new Test({
-          name: req.body.name,
-          description: req.body.description
-        });
-        req.flash('Failed', { msg: 'Test already exists. You may modify the test by making changes and pressing save.' }); // not working fix this
-      }
-      console.log(req.body);
-      if(existingTest.questionsID === undefined || existingTest.questionsID.length == 0)
-      {
-        existingTest.questionsID = [];
-        var questionName;
-        for(var i = 0;; i++)
-        {
-          questionName = 'question'+i;
-          if(!(req.body[questionName] === undefined))
-          {
-            console.log(req.body[questionName]);
-            if(req.body[questionName] != '-1')
-            {
-              existingTest.questionsID.push(req.body[questionName]);
-            }
-          }
-          else break; // this logic prevents the code from running synchrously
-          // despite req.body[questionName] being non existant
-        }
-      }
-      else {
-        for(var values in req.body.isAdded)
-        {
-          if(!values.equals('notAdded') && equals(questionID, values))
-          {
-            for(var questionID in existingTest.questionsID)
-            {
-              console.log('yay');
-              break;
-            }
-            console.log('yay');
-          }
-
-        }
-      }
-      existingTest.save((err) => {
-        if (err) { return next(err); }
-        req.flash('success', { msg: 'Test saved.' });
-        res.redirect('/dashboard');
+    if (err) { return next(err); }
+    if (!existingTest) {
+      existingTest = new Test({
+        name: req.body.name,
+        description: req.body.description
       });
+      req.flash('Failed', { msg: 'Test already exists. You may modify the test by making changes and pressing save.' }); // not working fix this
+      res.redirect('/create/test');
+    }
+    console.log(req.body);
+    if(existingTest.questionsID === undefined || existingTest.questionsID.length == 0)
+    {
+      existingTest.questionsID = [];
+      var questionName;
+      for(var i = 0;; i++)
+      {
+        questionName = 'question'+i;
+        if(!(req.body[questionName] === undefined))
+        {
+          console.log(req.body[questionName]);
+          if(req.body[questionName] != '-1')
+          {
+            existingTest.questionsID.push(req.body[questionName]);
+          }
+        }
+        else break; // this logic prevents the code from running synchrously
+        // despite req.body[questionName] being non existant
+      }
+    }
+    else {
+      for(var values in req.body.isAdded)
+      {
+        if(!values.equals('notAdded') && equals(questionID, values))
+        {
+          for(var questionID in existingTest.questionsID)
+          {
+            console.log('yay');
+            break;
+          }
+          console.log('yay');
+        }
+
+      }
+    }
+    existingTest.save((err) => {
+      if (err) { return next(err); }
+      req.flash('success', { msg: 'Test saved.' });
+      res.redirect('/dashboard');
     });
+  });
 
 /*
     if (err) { return next(err); }
@@ -180,5 +179,62 @@ exports.addQuestions = (req, res, next) => {
       if (err) { return next(err); }
     });
     return next(); */
+};
+
+/**
+ * POST /test/submit
+ * Submit test.
+ */
+exports.submitTest = (req, res, next) => {
+  var ObjectId = require('mongodb').ObjectId;
+  const questionQuery = {_id: req.params.questionID};
+  const tID = new ObjectId(req.params.testID);
+  const testQuery = {_id: tID};
+  const userQuery = {_id: req.user.id};
+
+  User.findOne(userQuery, (err, user) => {
+    if(err)
+    {
+      req.flash('errors', { msg: 'User does not exist :('});
+      return res.redirect('/login');
+    }
+    if (user) {
+      req.flash('success', { msg: 'Test submitted successfully.' });
+    }
+    if(user.responses === undefined || user.responses.length == 0) user.responses = [];
+    Test.findOne(testQuery, (err, test) => {
+      if(err)
+      {
+        console.log('Test not found');
+        req.flash('errors', { msg: 'Test does not exist :('});
+        return res.redirect('/dashboard');
+      }
+      if(test) console.log(test);
+      Question.findOne({_id: test.questionsID[req.params.qNumber]}, (err, question) => {
+        if(err)
+        {
+          req.flash('errors', { msg: 'Question does not exist :('});
+          return res.redirect('/dashboard');
+        }
+        user.responses.push(req.body.question);
+        var numQuestionsCorrect = 0;
+        var index = 0;
+        while(!(user.responses === undefined || user.responses.length == 0))
+        {
+          Question.findOne({_id: test.questionsID[index]}, (err, currQuestion) => {
+            if(err)
+            {
+              req.flash('errors', { msg: 'Server Error. Please Contact the Site Administrator.'});
+              return res.redirect('/dashboard');
+            }
+            if(user.responses.pop() == currQuestion.correctAnswers) numQuestionsCorrect++;
+            index++;
+          });
+        }
+        user.save((err) => {
+          if (err) { return next(err); }
+        });
+      });
+    });
   });
 };

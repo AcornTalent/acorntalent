@@ -1,0 +1,47 @@
+extends layout
+
+block content
+
+  p
+  h1=test.name
+  p.lead=test.description
+  p.lead Please answer the question with one of the following options.
+  hr
+  .row
+    .col-md-6
+      h2=question.name
+
+      - var link = '/test/'+test._id+'/' + qNumber + '/q/'+test.questionsID[qNumber];
+      - var buttonMessage = 'Next Question »';
+      if(qNumber >= test.questionsID.length - 1)
+        - link = '/test/submit';
+        - buttonMessage = 'Submit Test »';
+
+      form(action=link, method='POST')
+        input(type='hidden', name='_csrf', value=_csrf)
+        .form-group.row
+          .col-md-6
+            h2=question.question
+            p
+            .col-sm-6
+              label.radio.col-sm-3
+                if(!(question.options[0] === undefined))
+                  input(type='radio', name='question', value = 'one', data-toggle='radio', required)
+                  span='1. ' + question.options[0]
+              label.radio.col-sm-3
+                if(!(question.options[1] === undefined))
+                  input(type='radio', name='question', value = 'two', data-toggle='radio', required)
+                  span='2. ' + question.options[1]
+              label.radio.col-sm-3
+                if(!(question.options[2] === undefined))
+                  input(type='radio', name='question', value = 'three', data-toggle='radio', required)
+                  span='3. ' + question.options[2]
+              label.radio.col-sm-3
+                if(!(question.options[3] === undefined))
+                  input(type='radio', name='question', value = 'four', data-toggle='radio', required)
+                  span='4. ' + question.options[3]
+
+        .form-group
+          .offset-sm-3.col-md-7.pl-2
+            button.btn.btn-raised(type='submit')
+              =buttonMessage

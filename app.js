@@ -148,6 +148,9 @@ app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userControl
 app.post('/tests/new', testController.postNewTest); // TECHNICALLY ANY USER
 // WITH LINK CAN ADD TEST UNLESS AUTH MIDDLEWARE IS ADDED
 app.get('/test/:testID', passportConfig.isAuthenticated, testController.getCurrTest);
+app.get('/test/:testID/:qNumber/q/:questionID', passportConfig.isAuthenticated, questionController.getCurrQuestion);
+app.post('/test/:testID/:qNumber/q/:questionID', passportConfig.isAuthenticated, questionController.submitCurrQuestion);
+app.post('/test/submit', passportConfig.isAuthenticated, testController.submitTest);
 app.get('/create/test', passportConfig.isAuthenticated, passportConfig.isBusiness, testController.getCreateTest);
 app.post('/create/test/', passportConfig.isAuthenticated, testController.addQuestions);
 app.get('/create/question', passportConfig.isAuthenticated, passportConfig.isBusiness, questionController.getCreateQuestion);

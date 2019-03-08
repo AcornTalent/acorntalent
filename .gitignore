@@ -2,7 +2,7 @@
 # Hide private keys from GitHub
 
 # API keys and secrets
-# .env
+ .env
 
 [core]
 

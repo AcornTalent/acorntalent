@@ -8,9 +8,9 @@ html(data-wf-page='5c564e3464242a54c8dabd0b', data-wf-site='5c564e3464242a5323da
 		meta(content='Maker - Webflow HTML website template', property='og:title')
 		meta(content='width=device-width, initial-scale=1', name='viewport')
 		meta(content='Webflow', name='generator')
-		link(href='css/normalize.css', rel='stylesheet', type='text/css')
-		link(href='css/webflow.css', rel='stylesheet', type='text/css')
-		link(href='css/acorntalent.webflow.css', rel='stylesheet', type='text/css')
+		link(href='/css/normalize.css', rel='stylesheet', type='text/css')
+		link(href='/css/webflow.css', rel='stylesheet', type='text/css')
+		link(href='/css/acorntalent.webflow.css', rel='stylesheet', type='text/css')
 		script(src='https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js', type='text/javascript')
 		script(type='text/javascript').
 			WebFont.load({
@@ -35,17 +35,37 @@ html(data-wf-page='5c564e3464242a54c8dabd0b', data-wf-site='5c564e3464242a5323da
 				div Loading...
 		.nav-bar.w-nav(data-collapse='medium', data-animation='default', data-duration='400')
 			.wrapper.nav-bar-wrapper
-				a.brand.w-nav-brand(href='index.html')
+				a.brand.w-nav-brand.w--current(href='/')
 					img.logo-icon(src='images/logo.png', srcset='images/logo-p-500.png 500w, images/logo-p-800.png 800w, images/logo-p-1080.png 1080w, images/logo-p-1600.png 1600w, images/logo-p-2000.png 2000w, images/logo.png 2304w', sizes='(max-width: 479px) 4px, (max-width: 767px) 7vw, (max-width: 991px) 17vw, 170.03125px', alt='')
 				.navigation
-					.menu-button.w-nav-button
-						.w-icon-nav-menu
-						a.button.small.ghost.w-button(href='index.html') My Profile
-					a.button.small.ghost.w-button(href='index.html') Home
-					a.button.small.ghost.w-button(href='pages/about.html') About
+					a.button.small.ghost.w-button.w--current(href='') Home
 					a.button.small.ghost.w-button(href='http://www.acorntalent.io/CallofData/apply.html') Datathon
-					a.button.small.ghost.w-button(href='components/blog-3.html') Dashboard
-					a.button.small.ghost.w-button(href='index.html') My Profile
+					if !user
+						a.button.small.ghost.w-button.w--current(href='/login') Login
+						a.button.small.ghost.w-button.w--current(href='/signup') Create Account
+					else
+						ul.nav.navbar-nav.ml-auto
+							li.dropdown(class=(title === 'Account Management') ? 'active' : undefined).nav-item
+								a.dropdown-toggle.nav-link(href='#', data-toggle='dropdown')
+									if user.profile.picture
+										img(src=user.profile.picture)
+									else
+										img(src=user.gravatar(60))
+									span= user.profile.name || user.email || user.id
+									i.caret
+								ul.dropdown-menu
+									li.dropdown-item
+										a.button.small.ghost.w-button.w--current(href='/account') My Account
+									li.dropdown-item
+										a.button.small.ghost.w-button.w--current(href='/dashboard') Dashboard
+									if user.isBusiness
+										li.dropdown-item
+											a.button.small.ghost.w-button.w--current(href='/create/test') Create Test
+									if user.isBusiness
+										li.dropdown-item
+											a.button.small.ghost.w-button.w--current(href='/create/question') Create Question
+									li.dropdown-item
+										a.button.small.ghost.w-button.w--current(href='/logout') Log Out
 		.utility-page-wrap.grade-3(data-w-id='a6e4cdd1-3c5e-9223-7a0d-144a1904e2bf')
 			.utility-page-content
 				h1 Page Not Found
