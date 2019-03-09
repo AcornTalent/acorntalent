@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
   isBusiness: Boolean,
   responses: Object,
   testsTaken: Object,
-  scores: Object,
+  score: Number,
 
   snapchat: String,
   facebook: String,

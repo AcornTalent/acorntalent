@@ -150,9 +150,10 @@ app.post('/tests/new', testController.postNewTest); // TECHNICALLY ANY USER
 app.get('/test/:testID', passportConfig.isAuthenticated, testController.getCurrTest);
 app.get('/test/:testID/:qNumber/q/:questionID', passportConfig.isAuthenticated, questionController.getCurrQuestion);
 app.post('/test/:testID/:qNumber/q/:questionID', passportConfig.isAuthenticated, questionController.submitCurrQuestion);
-app.post('/test/submit', passportConfig.isAuthenticated, testController.submitTest);
+app.post('/test/:testID/:qNumber/q/:questionID/submit', passportConfig.isAuthenticated, testController.submitTest);
+app.get('/test/:testID/results', passportConfig.isAuthenticated, testController.getResultsPage);
 app.get('/create/test', passportConfig.isAuthenticated, passportConfig.isBusiness, testController.getCreateTest);
-app.post('/create/test/', passportConfig.isAuthenticated, testController.addQuestions);
+app.post('/create/test/', passportConfig.isAuthenticated, passportConfig.isBusiness, testController.addQuestions);
 app.get('/create/question', passportConfig.isAuthenticated, passportConfig.isBusiness, questionController.getCreateQuestion);
 // by default, isBusiness in user schema is set to false
 app.post('/create/question', passportConfig.isAuthenticated, passportConfig.isBusiness, questionController.addQuestion);

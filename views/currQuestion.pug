@@ -11,10 +11,10 @@ block content
     .col-md-6
       h2=question.name
 
-      - var link = '/test/'+test._id+'/' + qNumber + '/q/'+test.questionsID[qNumber];
+      - var link = '/test/'+test._id+'/' + qNumber + '/q/'+ test.questionsID[qNumber];
       - var buttonMessage = 'Next Question »';
       if(qNumber >= test.questionsID.length - 1)
-        - link = '/test/submit';
+        - link = '/test/'+test._id+'/' + qNumber + '/q/' + test.questionsID[qNumber] + '/submit';
         - buttonMessage = 'Submit Test »';
 
       form(action=link, method='POST')
