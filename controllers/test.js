@@ -227,7 +227,7 @@ exports.submitTest = (req, res, next) => {
         console.log('Responses After');
         console.log(user.responses);
 
-        var numQuestionsCorrect = 0;
+        user.score = 0;
         var numberQuestionsAnswered = user.responses.length;
         var shouldBreak = false;
         for(var index = 0; index < numberQuestionsAnswered && !shouldBreak; index++)
@@ -239,12 +239,12 @@ exports.submitTest = (req, res, next) => {
               return res.redirect('/dashboard');
             }
 
-            if(user.responses.pop() == currQuestion.correctAnswers) numQuestionsCorrect++;
-            console.log(numQuestionsCorrect);
+            console.log(currQuestion);
+            if(user.responses.pop() === currQuestion.correctAnswers) { user.score++;}
+            console.log(user.score);
 
             if(user.responses === undefined || user.responses.length == 0)
             {
-              user.score = numQuestionsCorrect;
               console.log(user.score);
               shouldBreak = false;
               user.save((err) => {
