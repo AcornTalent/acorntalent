@@ -5,6 +5,7 @@ const Test = require('../models/Test');
 const Question = require('../models/Question');
 const User = require('../models/User');
 const toTitleCase = require('../utils/toTitleCase');
+const sleep = require('sleep');
 
 /**
  * GET /tests
@@ -182,7 +183,7 @@ exports.addQuestions = (req, res, next) => {
 };
 
 /**
- * POST /test/submit
+ * POST /test/:testID/:qNumber/q/:questionID/submit
  * Submit test.
  */
 exports.submitTest = (req, res, next) => {
@@ -197,9 +198,6 @@ exports.submitTest = (req, res, next) => {
     {
       req.flash('errors', { msg: 'User does not exist :('});
       return res.redirect('/login');
-    }
-    if (user) {
-      req.flash('success', { msg: 'Test submitted successfully.' });
     }
     if(user.responses === undefined || user.responses.length == 0) user.responses = [];
     Test.findOne(testQuery, (err, test) => {
@@ -216,10 +214,16 @@ exports.submitTest = (req, res, next) => {
           req.flash('errors', { msg: 'Question does not exist :('});
           return res.redirect('/dashboard');
         }
+        console.log('Responses Before');
+        console.log(user.responses);
         user.responses.push(req.body.question);
+        console.log('Responses After');
+        console.log(user.responses);
+
         var numQuestionsCorrect = 0;
-        var index = 0;
-        while(!(user.responses === undefined || user.responses.length == 0))
+        var numberQuestionsAnswered = user.responses.length;
+        var shouldBreak = false;
+        for(var index = 0; index < numberQuestionsAnswered && !shouldBreak; index++)
         {
           Question.findOne({_id: test.questionsID[index]}, (err, currQuestion) => {
             if(err)
@@ -227,14 +231,61 @@ exports.submitTest = (req, res, next) => {
               req.flash('errors', { msg: 'Server Error. Please Contact the Site Administrator.'});
               return res.redirect('/dashboard');
             }
+            console.log('Before pop');
+            console.log(user.responses);
+
+            console.log(typeof(user.responses[user.responses.length - 1]));
+            console.log(user.responses[user.responses.length - 1]);
+            console.log(typeof(currQuestion.correctAnswers));
+            console.log(currQuestion.correctAnswers);
+
+            console.log("one" == "one");
             if(user.responses.pop() == currQuestion.correctAnswers) numQuestionsCorrect++;
-            index++;
+            console.log(numQuestionsCorrect);
+
+            if(user.responses === undefined || user.responses.length == 0) shouldBreak = false;
           });
         }
+
+        sleep.msleep(10000, (err) => {
+          user.score = numQuestionsCorrect;
+          console.log(numQuestionsCorrect);
+        });
+
         user.save((err) => {
           if (err) { return next(err); }
+          req.flash('success', { msg: 'Test submitted successfully!'});
+          res.redirect('/test/' + req.params.testID + '/results');
         });
       });
+    });
+  });
+};
+
+/**
+ * GET /test/:testID/results
+ * Get results page.
+ */
+exports.getResultsPage = (req, res, next) => {
+  var ObjectId = require('mongodb').ObjectId;
+  const tID = new ObjectId(req.params.testID);
+  const testQuery = {_id: tID};
+  const userQuery = {_id: req.user.id};
+
+  User.findOne(userQuery, (err, user) => {
+    if(err)
+    {
+      req.flash('errors', { msg: 'User does not exist :('});
+      return res.redirect('/dashboard');
+    }
+    console.log(user);
+    Test.findOne(testQuery, (err, test) => {
+      if(err)
+      {
+        req.flash('errors', { msg: 'Test does not exist :('});
+        return res.redirect('/dashboard');
+      }
+      res.render('resultsPage', {user: user, test: test});
     });
   });
 };

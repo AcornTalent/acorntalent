@@ -1,0 +1,14 @@
+extends layout
+
+block content
+
+  p
+  h1='Results for ' + test.name
+  p.lead=test.description
+  hr
+  if(!test || !user)
+    p User or test does not exist! Please check back later or contact us at support@acorntalent.io
+  else
+    p='Your score for this test was ' + user.score
+  a.btn.btn-raised(href='/dashboard', role='button') Back to Dashboard »
+  p
