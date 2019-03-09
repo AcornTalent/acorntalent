@@ -13,7 +13,7 @@ block content
 
       - var link = '/test/'+test._id+'/' + qNumber + '/q/'+ test.questionsID[qNumber];
       - var buttonMessage = 'Next Question »';
-      if(qNumber >= test.questionsID.length - 1)
+      if(parseInt(qNumber) >= test.questionsID.length - 1)
         - link = '/test/'+test._id+'/' + qNumber + '/q/' + test.questionsID[qNumber] + '/submit';
         - buttonMessage = 'Submit Test »';
 
