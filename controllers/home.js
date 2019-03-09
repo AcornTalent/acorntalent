@@ -17,3 +17,13 @@ exports.noPage = (req, res) => {
     title: 'Page Not Found'
   });
 };
+
+/**
+ * GET /callofdata
+ * Get Call of Data page.
+ */
+exports.getCallOfDataPage = (req, res) => {
+  res.render('callofdata', {
+    title: 'Call of Data'
+  });
+};
