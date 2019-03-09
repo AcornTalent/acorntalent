@@ -45,12 +45,12 @@ html(data-wf-page='5c564e3464242a0739dabc93', data-wf-site='5c564e3464242a5323da
 							a.button.small.ghost.w-button.w--current(href='/signup') Create Account
 						else
 							a.button.small.ghost.w-button.w--current(href='/account') My Account
-							a.button.small.ghost.w-button(href='/dashboard') Dashboard
+							a.button.small.ghost.w-button.w--current(href='/dashboard') Dashboard
 							if user.isBusiness
 								a.button.small.ghost.w-button.w--current(href='/create/test') Create Test
 							if user.isBusiness
 								a.button.small.ghost.w-button.w--current(href='/create/question') Create Question
-							a.button.small.ghost.w-button.w--current(href='/logout') Log Out
+								a.button.small.ghost.w-button.w--current(href='/logout') Log Out
 			.flex-parent.hero-intro-section
 				.wrapper
 					.side-feature.mobile-reversed
