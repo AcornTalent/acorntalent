@@ -20,26 +20,26 @@ block content
       form(action=link, method='POST')
         input(type='hidden', name='_csrf', value=_csrf)
         .form-group.row
-          .col-md-6
+          .row-md-6
             h2=question.question
             p
-            .col-sm-6
-              label.radio.col-sm-3
+            .col-md-30
+              label.radio
                 if(!(question.options[0] === undefined))
                   input(type='radio', name='question', value = 'one', data-toggle='radio', required)
-                  span='1. ' + question.options[0]
-              label.radio.col-sm-3
+                  span=' 1. ' + question.options[0]
+              label.radio
                 if(!(question.options[1] === undefined))
                   input(type='radio', name='question', value = 'two', data-toggle='radio', required)
-                  span='2. ' + question.options[1]
-              label.radio.col-sm-3
+                  span=' 2. ' + question.options[1]
+              label.radio
                 if(!(question.options[2] === undefined))
                   input(type='radio', name='question', value = 'three', data-toggle='radio', required)
-                  span='3. ' + question.options[2]
-              label.radio.col-sm-3
+                  span=' 3. ' + question.options[2]
+              label.radio
                 if(!(question.options[3] === undefined))
                   input(type='radio', name='question', value = 'four', data-toggle='radio', required)
-                  span='4. ' + question.options[3]
+                  span=' 4. ' + question.options[3]
 
         .form-group
           .offset-sm-3.col-md-7.pl-2
