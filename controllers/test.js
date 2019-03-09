@@ -5,7 +5,6 @@ const Test = require('../models/Test');
 const Question = require('../models/Question');
 const User = require('../models/User');
 const toTitleCase = require('../utils/toTitleCase');
-const sleep = require('sleep');
 
 /**
  * GET /tests
@@ -182,6 +181,14 @@ exports.addQuestions = (req, res, next) => {
     return next(); */
 };
 
+function sleep(time, callback) {
+  var stop = new Date().getTime();
+  while(new Date().getTime() < stop + time) {
+      ;
+  }
+  callback();
+}
+
 /**
  * POST /test/:testID/:qNumber/q/:questionID/submit
  * Submit test.
@@ -231,36 +238,28 @@ exports.submitTest = (req, res, next) => {
               req.flash('errors', { msg: 'Server Error. Please Contact the Site Administrator.'});
               return res.redirect('/dashboard');
             }
-            console.log('Before pop');
-            console.log(user.responses);
 
-            console.log(typeof(user.responses[user.responses.length - 1]));
-            console.log(user.responses[user.responses.length - 1]);
-            console.log(typeof(currQuestion.correctAnswers));
-            console.log(currQuestion.correctAnswers);
-
-            console.log("one" == "one");
             if(user.responses.pop() == currQuestion.correctAnswers) numQuestionsCorrect++;
             console.log(numQuestionsCorrect);
 
-            if(user.responses === undefined || user.responses.length == 0) shouldBreak = false;
+            if(user.responses === undefined || user.responses.length == 0)
+            {
+              user.score = numQuestionsCorrect;
+              console.log(user.score);
+              shouldBreak = false;
+              user.save((err) => {
+                if (err) { return next(err); }
+                req.flash('success', { msg: 'Test submitted successfully!'});
+                res.redirect('/test/' + req.params.testID + '/results');
+              });
+            }
           });
         }
-
-        sleep.msleep(10000, (err) => {
-          user.score = numQuestionsCorrect;
-          console.log(numQuestionsCorrect);
-        });
-
-        user.save((err) => {
-          if (err) { return next(err); }
-          req.flash('success', { msg: 'Test submitted successfully!'});
-          res.redirect('/test/' + req.params.testID + '/results');
-        });
       });
     });
   });
 };
+
 
 /**
  * GET /test/:testID/results
@@ -285,7 +284,7 @@ exports.getResultsPage = (req, res, next) => {
         req.flash('errors', { msg: 'Test does not exist :('});
         return res.redirect('/dashboard');
       }
-      res.render('resultsPage', {user: user, test: test});
+      res.render('resultsPage', {score: req.score, user: user, test: test});
     });
   });
 };
