@@ -79,7 +79,7 @@ exports.submitCurrQuestion = (req, res) => {
       return res.redirect('/login');
     }
 
-    if(user.responses === undefined || user.responses.length == 0) user.responses = [];
+    if(user.responses === undefined || user.responses.length == 0) { user.responses = []; }
     Test.findOne(testQuery, (err, test) => {
       if(err)
       {
