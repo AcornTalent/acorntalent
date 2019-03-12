@@ -194,6 +194,7 @@ function sleep(time, callback) {
  * Submit test.
  */
 exports.submitTest = (req, res, next) => {
+  console.log(req)
   var ObjectId = require('mongodb').ObjectId;
   const questionQuery = {_id: req.params.questionID};
   const tID = new ObjectId(req.params.testID);
