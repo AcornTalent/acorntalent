@@ -27,3 +27,13 @@ exports.getCallOfDataPage = (req, res) => {
     title: 'Call of Data'
   });
 };
+
+/**
+ * GET /about
+ * About page.
+ */
+exports.getAboutPage = (req, res) => {
+  res.render('about', {
+    title: 'About Us'
+  });
+};

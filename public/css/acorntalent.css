@@ -4976,13 +4976,11 @@ figure {
 .small-message.grade-1 {
   background-image: -webkit-gradient(linear, left top, right top, from(#4c39f3), to(#39abff));
   background-image: linear-gradient(90deg, #4c39f3, #39abff);
-  color: #fff;
 }
 
 .small-message.grade-2 {
   background-image: -webkit-gradient(linear, left top, right top, from(#f8238f), to(#ff933c));
   background-image: linear-gradient(90deg, #f8238f, #ff933c);
-  color: #fff;
 }
 
 .small-message.grade-3 {
@@ -7527,41 +7525,80 @@ figure {
   background-repeat: no-repeat;
 }
 
-.team-member-avatar._1 {
+.team-member-avatar._erica {
   margin-right: 30px;
   -webkit-box-flex: 0;
   -webkit-flex: 0 0 auto;
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
-  background-image: url('../images/Avatar-30.jpg');
+  background-image: url('../images/erica-min.jpg');
+}
+
+.team-member-avatar._helen {
+  margin-right: 30px;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  background-image: url('../images/Helen-min.jpg');
+}
+
+.team-member-avatar._malaika {
+  margin-right: 30px;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  background-image: url('../images/Malaika.png');
+}
+
+.team-member-avatar._hongyi {
+  margin-right: 30px;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  background-image: url('../images/HongYI-min.jpg');
+}
+
+.team-member-avatar._jalena {
+  margin-right: 30px;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  background-image: url('../images/Jalena-min.JPG');
+  background-size: cover;
   color: transparent;
 }
 
-.team-member-avatar._2 {
+.team-member-avatar._jennifer {
   margin-right: 30px;
   -webkit-box-flex: 0;
   -webkit-flex: 0 0 auto;
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
-  background-image: url('../images/Avatar-32.jpg');
+  background-image: url('../images/Jennifer-min.JPG');
+  background-size: cover;
+  color: transparent;
 }
 
-.team-member-avatar._4 {
+.team-member-avatar._sameer {
   margin-right: 30px;
   -webkit-box-flex: 0;
   -webkit-flex: 0 0 auto;
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
-  background-image: url('../images/Avatar-31.jpg');
+  background-image: url('../images/Sameer-min.jpg');
 }
 
-.team-member-avatar._3 {
+.team-member-avatar._serena {
   margin-right: 30px;
   -webkit-box-flex: 0;
   -webkit-flex: 0 0 auto;
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
-  background-image: url('../images/Avatar-27.jpg');
+  background-image: url('../images/Serena-min.jpg');
 }
 
 .team-member-info {
@@ -7653,7 +7690,7 @@ figure {
   position: absolute;
   left: 0px;
   right: 0px;
-  bottom: 0px;
+  bottom: -16px;
   z-index: 2;
   height: 8vw;
   padding-bottom: 0px;
@@ -7682,14 +7719,16 @@ figure {
 }
 
 .text-columns {
+  width: 600px;
   margin: 24px 15px 28px;
   -webkit-transform: translate(0px, 0px);
   -ms-transform: translate(0px, 0px);
   transform: translate(0px, 0px);
   -webkit-transition: opacity 200ms ease;
   transition: opacity 200ms ease;
-  -webkit-column-count: 2;
-  column-count: 2;
+  text-align: center;
+  -webkit-column-count: 1;
+  column-count: 1;
   -webkit-column-gap: 4em;
   column-gap: 4em;
   -webkit-column-rule-width: 1px;
@@ -8542,6 +8581,12 @@ figure {
   width: 150px;
   margin-top: 14px;
   text-align: center;
+}
+
+.image-19 {
+  width: 120px;
+  background-image: url('../images/unnamed.jpg');
+  background-position: 0px 0px;
 }
 
 @media (max-width: 991px) {
