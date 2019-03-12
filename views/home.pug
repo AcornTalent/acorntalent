@@ -1,15 +1,13 @@
 doctype html
-// This site was created in Webflow. http://www.webflow.com
-// Last Published: Sun Feb 24 2019 18:55:35 GMT+0000 (UTC)
 html(data-wf-page='5c564e3464242a0739dabc93', data-wf-site='5c564e3464242a5323dabc8f')
 	head
 		meta(charset='utf-8')
-		title Acorn Talent | Home
+		title AcornTalent: Connecting Tech Talent With Their Dream Jobs
 		meta(content='width=device-width, initial-scale=1', name='viewport')
-		meta(content='Webflow', name='generator')
+		meta(content='AcornTalent: Connecting Tech Talent With Their Dream Jobs', name='generator')
 		link(href='css/normalize.css', rel='stylesheet', type='text/css')
-		link(href='css/webflow.css', rel='stylesheet', type='text/css')
-		link(href='css/acorntalent.webflow.css', rel='stylesheet', type='text/css')
+		link(href='css/acorn.css', rel='stylesheet', type='text/css')
+		link(href='css/acorntalent.css', rel='stylesheet', type='text/css')
 		script(src='https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js', type='text/javascript')
 		script(type='text/javascript').
 			WebFont.load({
@@ -38,30 +36,31 @@ html(data-wf-page='5c564e3464242a0739dabc93', data-wf-site='5c564e3464242a5323da
 					a.brand.w-nav-brand.w--current(href='/')
 						img.logo-icon(src='images/logo.png', srcset='images/logo-p-500.png 500w, images/logo-p-800.png 800w, images/logo-p-1080.png 1080w, images/logo-p-1600.png 1600w, images/logo-p-2000.png 2000w, images/logo.png 2304w', sizes='(max-width: 479px) 4px, (max-width: 767px) 7vw, (max-width: 991px) 17vw, 170.03125px', alt='')
 					.navigation
-						a.button.small.ghost.w-button(href='/callofdata') Datathon
+						a.button.small.ghost.w-button(href='/') Home
+						a.button.small.ghost.w-button(href='http://www.acorntalent.io/CallofData/apply.html') Datathon
 						if !user
 							a.button.small.ghost.w-button.w--current(href='/login') Login
 							a.button.small.ghost.w-button.w--current(href='/signup') Create Account
 						else
-								a.button.small.ghost.w-button.w--current(href='/account') My Account
-								a.button.small.ghost.w-button.w--current(href='/dashboard') Dashboard
-								if user.isBusiness
-										a.button.small.ghost.w-button.w--current(href='/create/test') Create Test
-								if user.isBusiness
-										a.button.small.ghost.w-button.w--current(href='/create/question') Create Question
+							a.button.small.ghost.w-button.w--current(href='/account') My Account
+							a.button.small.ghost.w-button.w--current(href='/dashboard') Dashboard
+							if user.isBusiness
+								a.button.small.ghost.w-button.w--current(href='/create/test') Create Test
+							if user.isBusiness
+								a.button.small.ghost.w-button.w--current(href='/create/question') Create Question
 								a.button.small.ghost.w-button.w--current(href='/logout') Log Out
 			.flex-parent.hero-intro-section
 				.wrapper
 					.side-feature.mobile-reversed
 						.side-info.hero-intro(data-w-id='06de4eac-3c50-fe2d-c0ee-b113f80cfae6')
-							h1.heading-7 WE CONNECT TOP UNDISCOVERED TECH TALENT WITH THEIR DREAM JOBS.
+							h1.heading-7 We pre-screen and connect aspiring data scientists to tech jobs.
 							p.paragraph
-								| Join us on our mission to eliminate bias and increase efficiency in the recruitment process. Through technical pre-screening, we aim to revolutionize the hiring process.
+								| Join us on our mission to increase efficiency in the recruitment process and bridge gaps to build a diverse industry. Through technical pre-screening, we aim to revolutionize the hiring process.
 							.side-buttons.flex-left
-								a.button.w-inline-block.w-clearfix(href='/signup', target='_blank')
+								a.button.w-inline-block.w-clearfix(href='/login', target='_blank')
 									img.button-icon(src='images/arrow-right-icon-white.svg', alt='')
 									.text-block-2 Sign Up!
-								a.button.ghost.margin-left.w-button(href='http://www.acorntalent.io/CallofData/apply.html') Join our Datathon!
+								a.button.ghost.margin-left.w-button(href='/callofdata') Join our Datathon!
 								img(src='images/user-icon-white.svg', alt='')
 				.hero-intro-bg
 			.flex-parent.grade-1(data-w-id='98fd654e-b7ae-9a16-526d-14da5ec58b6a')
@@ -112,12 +111,13 @@ html(data-wf-page='5c564e3464242a0739dabc93', data-wf-site='5c564e3464242a5323da
 									| By Recruiters
 									br
 						.feature-cards
-			.message.grade-3
-				.message-text Let's connect you with your next dream tech job.
-				a.button.white.w-inline-block.w-clearfix(href='/signup')
-					img.button-icon(src='images/plus-circle-icon.svg', alt='')
-					.text-left Sign Up Now
-			.flex-parent.haze
+			.side-block.phones-bg
+				.message.grade-3
+					.message-text Let's connect you with your next dream tech job.
+					a.button.white.w-inline-block.w-clearfix(href='#')
+						img.button-icon(src='images/user-icon.svg', alt='')
+						.text-left Sign Up Now
+			.flex-parent.haze.recruiter
 				.wrapper
 					.section-intro
 					.features-v3
@@ -147,7 +147,7 @@ html(data-wf-page='5c564e3464242a0739dabc93', data-wf-site='5c564e3464242a5323da
 									| Purple Squirrel
 									br
 						.feature-cards
-			.message.grade-3
+			.message.grade-3.subscribe
 				.subscribe-1-form-wrapper
 					img.subscribe-v1-icon(src='images/emoji-mailbox-icon_1emoji-mailbox-icon.png', alt='')
 					h4.subscribe-v1-heading Subscribe to Our Newsletter
@@ -165,19 +165,22 @@ html(data-wf-page='5c564e3464242a0739dabc93', data-wf-site='5c564e3464242a5323da
 				.wrapper
 					.footer-v3
 						.footer-v3-menu
-							a.footer-v3-link(href='help-center.html') ABOUT
-							a.footer-v3-link(href='pricing/pricing-1.html') DATATHON
-							a.footer-v3-link(href='blog-layouts/blog-1.html') CHALLENGES
-							a.footer-v3-link(href='pages/faq.html') PROFILE
+							a.footer-v3-link.w--current(href='index.html') HOME
+							a.footer-v3-link(href='about.html') ABOUT
+							a.footer-v3-link(href='callofdata.html') DATATHON
+							a.footer-v3-link(href='dashboard.html') DASHBOARD
+							a.footer-v3-link(href='index.html') MY PROFILE
 						.footer-v3-bottom
 							.social-icons-small
 								a.social-link-small.w-inline-block(href='https://twitter.com/acorntalent_io', target='_blank')
 									img.social-icon-small(src='images/twitter-icon-color.svg', alt='')
-								a.social-link-small.w-inline-block(href='https://www.facebook.com/AcornTalent.io/', target='_blank')
+								a.social-link-small.w-inline-block(href='https://facebook.com/AcornTalent.io', target='_blank')
 									img.social-icon-small(src='images/facebook-icon-color.svg', alt='')
-								a.social-link-small.w-inline-block(href='https://www.instagram.com/acorntalent_io/', target='_blank')
+								a.social-link-small.w-inline-block(href='https://instagram.com/acorntalent_io', target='_blank')
 									img.social-icon-small(src='images/instagram-icon-color.svg', alt='')
+								a.social-link-small.w-inline-block(href='https://youtube.com', target='_blank')
+									img.social-icon-small(src='images/youtube-icon-color.svg', alt='')
 		script(src='https://d1tdp7z6w94jbb.cloudfront.net/js/jquery-3.3.1.min.js', type='text/javascript', integrity='sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=', crossorigin='anonymous')
-		script(src='js/webflow.js', type='text/javascript')
+		script(src='js/acorn.js', type='text/javascript')
 		//
 			if lte IE 9script(src='https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js')
