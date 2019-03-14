@@ -1,6 +1,4 @@
 doctype html
-// This site was created in Webflow. http://www.webflow.com
-// Last Published: Tue Feb 26 2019 02:02:26 GMT+0000 (UTC)
 html(data-wf-page='5c564e3464242a54c8dabd0b', data-wf-site='5c564e3464242a5323dabc8f')
 	head
 		meta(charset='utf-8')
@@ -38,7 +36,6 @@ html(data-wf-page='5c564e3464242a54c8dabd0b', data-wf-site='5c564e3464242a5323da
 				a.brand.w-nav-brand.w--current(href='/')
 					img.logo-icon(src='images/logo.png', srcset='images/logo-p-500.png 500w, images/logo-p-800.png 800w, images/logo-p-1080.png 1080w, images/logo-p-1600.png 1600w, images/logo-p-2000.png 2000w, images/logo.png 2304w', sizes='(max-width: 479px) 4px, (max-width: 767px) 7vw, (max-width: 991px) 17vw, 170.03125px', alt='')
 				.navigation
-					a.button.small.ghost.w-button(href='') Home
 					a.button.small.ghost.w-button(href='/about') About
 					if !user
 						a.button.small.ghost.w-button.w--current(href='/login') Login
@@ -86,56 +83,19 @@ html(data-wf-page='5c564e3464242a54c8dabd0b', data-wf-site='5c564e3464242a5323da
 				.bubble-10(data-w-id='f3f1243f-cf8c-736c-a9b1-89e3a33dee2c')
 		.flex-parent.no-padding-vertical.border-top
 			.wrapper
-				.footer-v1
-					.footer-v1-info
-						a.brand.footer-v1-brand.w-nav-brand(href='index.html')
-							img.logo-icon(src='images/logo-dark.svg', alt='')
+				.footer-v3
+					.footer-v3-menu
+						a.footer-v3-link.w--current(href='/') HOME
+						a.footer-v3-link(href='/about') ABOUT
+						a.footer-v3-link(href='/callofdata') DATATHON
+					.footer-v3-bottom
 						.social-icons-small
-							a.social-link-small.w-inline-block(href='https://twitter.com', target='_blank')
-								img.social-icon-small(src='images/twitter-icon-color.svg', alt='')
-							a.social-link-small.w-inline-block(href='https://facebook.com', target='_blank')
-								img.social-icon-small(src='images/facebook-icon-color.svg', alt='')
-							a.social-link-small.w-inline-block(href='https://instagram.com', target='_blank')
+							a.social-link-small.w-inline-block(href='https://instagram.com/acorntalent_io', target='_blank')
 								img.social-icon-small(src='images/instagram-icon-color.svg', alt='')
-							a.social-link-small.w-inline-block(href='https://youtube.com', target='_blank')
-								img.social-icon-small(src='images/youtube-icon-color.svg', alt='')
-					.footer-v1-column
-						h4 Navigation
-						a.footer-v1-link(href='index.html') Intro
-						a.footer-v1-link(href='/components/all') Components
-						a.footer-v1-link(href='components/pricing.html') Pricing
-						a.footer-v1-link(href='components/testimonials.html') Testimonials
-						a.footer-v1-link(href='blog-layouts/blog-1.html') Blog
-						a.footer-v1-link(href='pages/contact.html') Contact
-					.footer-v1-column
-						h4 Service Pages
-						a.footer-v1-link(href='401.html') Protected Page
-						a.footer-v1-link.w--current(href='404.html') 404 Page
-						a.footer-v1-link(href='template/style-guide.html') Style Guide
-						a.footer-v1-link(href='template/changelog.html') Changelog
-						a.footer-v1-link(href='template/licensing.html') Licensing
-					.footer-v1-column
-						h4 More Pages
-						a.footer-v1-link(href='help-center.html') Help Center
-						a.footer-v1-link(href='pages/faq.html') FAQ
-						a.footer-v1-link(href='index.html') Terms of Service
-					.footer-v1-column
-						h4 Download
-						a.footer-app-link.w-inline-block(href='index.html')
-							.footer-app-icon
-								img(src='images/mobile-icon.svg', alt='')
-							div Maker for iPhone
-						a.footer-app-link.w-inline-block(href='index.html')
-							.footer-app-icon
-								img(src='images/monitor-icon.svg', alt='')
-							div Maker for Mac
-					.footer-v1-bottom
-						div
-							| Carefully crafted by
-							a.link-grey(href='https://elasticthemes.com', target='_blank') Elastic Themes
-						div
-							| Powered by
-							a.link-grey(href='https://webflow.com/', target='_blank') Webflow
+							a.social-link-small.w-inline-block(href='https://facebook.com/AcornTalent.io', target='_blank')
+								img.social-icon-small(src='images/facebook-icon-color.svg', alt='')
+							a.social-link-small.w-inline-block(href='https://twitter.com/acorntalent_io', target='_blank')
+								img.social-icon-small(src='images/twitter-icon-color.svg', alt='')
 		script(src='https://d1tdp7z6w94jbb.cloudfront.net/js/jquery-3.3.1.min.js', type='text/javascript', integrity='sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=', crossorigin='anonymous')
 		script(src='js/webflow.js', type='text/javascript')
 		//
