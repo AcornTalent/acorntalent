@@ -1,10 +1,6 @@
-const { promisify } = require('util');
-const nodemailer = require('nodemailer');
-const passport = require('passport');
 const Question = require('../models/Question');
 const Test = require('../models/Test');
 const User = require('../models/User');
-const toTitleCase = require('../utils/toTitleCase');
 
 /**
  * GET /questionByID
@@ -19,8 +15,7 @@ exports.getQuestionByID = (req, res) => {
  * Return all questions
 */
 exports.getQuestionByID = (req, res) => {
-  const query = {_id: req.id}
-  Question.find({}, res);
+  Question.find({ }, res);
 };
 
 /**
@@ -36,23 +31,20 @@ exports.getCreateQuestion = (req, res) => {
  * Get the current question
 */
 exports.getCurrQuestion = (req, res) => {
-  const questionQuery = {_id: req.params.questionID};
-  const testQuery = {_id: req.params.testID};
+  const testQuery = { _id: req.params.testID };
 
   Test.findOne(testQuery, (err, test) => {
-    if(err)
-    {
-      req.flash('errors', { msg: 'Test does not exist :('});
+    if (err) {
+      req.flash('errors', { msg: 'Test does not exist :(' });
       return res.redirect('/dashboard');
     }
-      Question.findOne({_id: test.questionsID[req.params.qNumber]}, (err, question) => {
-      if(err)
-      {
-        req.flash('errors', { msg: 'Question does not exist :('});
+    Question.findOne({ _id: test.questionsID[req.params.qNumber] }, (err, question) => {
+      if (err) {
+        req.flash('errors', { msg: 'Question does not exist :(' });
         return res.redirect('/dashboard');
       }
       console.log(test + question);
-      res.render('currQuestion', { qNumber: req.params.qNumber, question: question, test: test});
+      res.render('currQuestion', { qNumber: req.params.qNumber, question, test });
     });
   });
 };
@@ -62,49 +54,40 @@ exports.getCurrQuestion = (req, res) => {
  * Submit the current question
 */
 exports.submitCurrQuestion = (req, res) => {
-  var ObjectId = require('mongodb').ObjectId;
-
-  var qID = req.params.questionID;
-  var q_ID = new ObjectId(qID);
-  const questionQuery = {_id: q_ID};
-
-  const testQuery = {_id: req.params.testID};
-  const userQuery = {_id: req.user.id};
+  const testQuery = { _id: req.params.testID };
+  const userQuery = { _id: req.user.id };
 
 
   User.findOne(userQuery, (err, user) => {
-    if(err || !user)
-    {
-      req.flash('errors', { msg: 'User does not exist :('});
+    if (err || !user) {
+      req.flash('errors', { msg: 'User does not exist :(' });
       return res.redirect('/login');
     }
 
-    if(user.responses === undefined || user.responses.length == 0) { user.responses = []; user.responses.length = 15;}
+    if (user.responses === undefined || user.responses.length === 0) {
+      user.responses = []; user.responses.length = 15;
+    }
     Test.findOne(testQuery, (err, test) => {
-      if(err)
-      {
-        req.flash('errors', { msg: 'Test does not exist :('});
+      if (err) {
+        req.flash('errors', { msg: 'Test does not exist :(' });
         return res.redirect('/dashboard');
       }
-      Question.find({_id: test.questionsID[req.params.qNumber]}, (err, question) => {
-        if(err)
-        {
-          req.flash('errors', { msg: 'Question does not exist :('});
+      Question.find({ _id: test.questionsID[req.params.qNumber] }, (err, question) => {
+        if (err || !question) {
+          req.flash('errors', { msg: 'Question does not exist :(' });
           return res.redirect('/dashboard');
         }
-        console.log('user responses prepush: ' + req.body.question);
+        console.log(`user responses prepush: ${req.body.question}`);
         user.responses.push(req.body.question);
-        console.log('user responses postpush: ' + req.body.question);
+        console.log(`user responses postpush: ${req.body.question}`);
         user.responses.length = 15;
         console.log(user.responses);
         user.save((err) => {
-          if(err) { return next(err); }
-          else
-          {
-            console.log(user.responses);
-            const nextQuestion = '/test/'+test._id+'/' + (parseInt(req.params.qNumber)+1) + '/q/'+test.questionsID[parseInt(req.params.qNumber)+1];
-            res.redirect(nextQuestion);
-          }
+          if (err) { return next(err); }
+
+          console.log(user.responses);
+          const nextQuestion = `/test/${test._id}/${parseInt(req.params.qNumber, 10) + 1}/q/${test.questionsID[parseInt(req.params.qNumber, 10) + 1]}`;
+          res.redirect(nextQuestion);
         });
       });
     });
@@ -116,14 +99,17 @@ exports.submitCurrQuestion = (req, res) => {
  * Create new question
  */
 exports.addQuestion = (req, res, next) => {
-
   console.log(req.body);
 
-  Question.findOne({question: req.body.question}, (err, existingQuestion) => {
+  Question.findOne({ question: req.body.question }, (err, existingQuestion) => {
     if (err) { return next(err); }
 
+    if (existingQuestion) {
+      req.flash('errors', { msg: 'That question (exact wording) already exists.' });
+      return res.redirect('/create/question');
+    }
     // Question doesn't yet exist
-    var options = [req.body.option1, req.body.option2, req.body.option3, req.body.option4];
+    const options = [req.body.option1, req.body.option2, req.body.option3, req.body.option4];
 
     const question = new Question({
       question: req.body.question || '',

@@ -1,10 +1,6 @@
-const { promisify } = require('util');
-const nodemailer = require('nodemailer');
-const passport = require('passport');
 const Test = require('../models/Test');
 const Question = require('../models/Question');
 const User = require('../models/User');
-const toTitleCase = require('../utils/toTitleCase');
 
 /**
  * GET /tests
@@ -13,11 +9,7 @@ const toTitleCase = require('../utils/toTitleCase');
 exports.getTests = (req, res) => {
   Test.find((err, docs) => {
     console.log(docs);
-    for(var test in docs)
-    {
-
-    }
-    res.render('tests', { tests: docs});
+    res.render('tests', { tests: docs });
   });
 };
 
@@ -26,16 +18,16 @@ exports.getTests = (req, res) => {
  * Pull up current test
 */
 exports.getCurrTest = (req, res) => {
-  const query = {_id: req.params.testID};
+  const query = { _id: req.params.testID };
   console.log(query);
   Test.findOne(query, (err, test) => {
-    /*if(test.questionsID == null)
+    /* if(test.questionsID == null)
     {
       req.flash('errors', { msg: 'No questions in test. :o' });
       return res.redirect('/dashboard');
-    }*/
+    } */
     console.log(test);
-    res.render('currTest', { test: test});
+    res.render('currTest', { test });
   });
 };
 
@@ -45,7 +37,7 @@ exports.getCurrTest = (req, res) => {
 */
 exports.getCreateTest = (req, res) => {
   Question.find((err, questions) => {
-    res.render('createTest', {questions: questions});
+    res.render('createTest', { questions });
   });
 };
 
@@ -107,38 +99,28 @@ exports.addQuestions = (req, res, next) => {
       res.redirect('/create/test');
     }
     console.log(req.body);
-    if(existingTest.questionsID === undefined || existingTest.questionsID.length == 0)
-    {
+    if (existingTest.questionsID === undefined || existingTest.questionsID.length === 0) {
       existingTest.questionsID = [];
-      var questionName;
-      for(var i = 0;; i++)
-      {
-        questionName = 'question'+i;
-        if(!(req.body[questionName] === undefined))
-        {
+      let questionName;
+      for (let i = 0; ; i++) {
+        questionName = `question${i}`;
+        if (!(req.body[questionName] === undefined)) {
           console.log(req.body[questionName]);
-          if(req.body[questionName] != '-1')
-          {
+          if (req.body[questionName] !== '-1') {
             existingTest.questionsID.push(req.body[questionName]);
           }
-        }
-        else break; // this logic prevents the code from running synchrously
+        } else break; // this logic prevents the code from running synchrously
         // despite req.body[questionName] being non existant
       }
-    }
-    else {
-      for(var values in req.body.isAdded)
-      {
-        if(!values.equals('notAdded') && equals(questionID, values))
-        {
-          for(var questionID in existingTest.questionsID)
-          {
+    } else {
+      for (const values in req.body.isAdded) {
+        if (!values.equals('notAdded') && equals(questionID, values)) {
+          for (var questionID in existingTest.questionsID) {
             console.log('yay');
             break;
           }
           console.log('yay');
         }
-
       }
     }
     existingTest.save((err) => {
@@ -181,45 +163,34 @@ exports.addQuestions = (req, res, next) => {
     return next(); */
 };
 
-function sleep(time, callback) {
-  var stop = new Date().getTime();
-  while(new Date().getTime() < stop + time) {
-      ;
-  }
-  callback();
-}
-
 /**
  * POST /test/:testID/:qNumber/q/:questionID/submit
  * Submit test.
  */
 exports.submitTest = (req, res, next) => {
-  console.log(req)
-  var ObjectId = require('mongodb').ObjectId;
-  const questionQuery = {_id: req.params.questionID};
+  console.log(req);
+  const { ObjectId } = require('mongodb');
+  const questionQuery = { _id: req.params.questionID };
   const tID = new ObjectId(req.params.testID);
-  const testQuery = {_id: tID};
-  const userQuery = {_id: req.user.id};
+  const testQuery = { _id: tID };
+  const userQuery = { _id: req.user.id };
 
   User.findOne(userQuery, (err, user) => {
-    if(err)
-    {
-      req.flash('errors', { msg: 'User does not exist :('});
+    if (err) {
+      req.flash('errors', { msg: 'User does not exist :(' });
       return res.redirect('/login');
     }
-    if(user.responses === undefined || user.responses.length == 0) user.responses = [];
+    if (user.responses === undefined || user.responses.length === 0) user.responses = [];
     Test.findOne(testQuery, (err, test) => {
-      if(err)
-      {
+      if (err) {
         console.log('Test not found');
-        req.flash('errors', { msg: 'Test does not exist :('});
+        req.flash('errors', { msg: 'Test does not exist :(' });
         return res.redirect('/dashboard');
       }
-      if(test) console.log(test);
-      Question.findOne({_id: test.questionsID[req.params.qNumber]}, (err, question) => {
-        if(err)
-        {
-          req.flash('errors', { msg: 'Question does not exist :('});
+      if (test) console.log(test);
+      Question.findOne({ _id: test.questionsID[req.params.qNumber] }, (err, question) => {
+        if (err) {
+          req.flash('errors', { msg: 'Question does not exist :(' });
           return res.redirect('/dashboard');
         }
         console.log('Responses Before');
@@ -229,29 +200,26 @@ exports.submitTest = (req, res, next) => {
         console.log(user.responses);
 
         user.score = 0;
-        var numberQuestionsAnswered = user.responses.length;
-        var shouldBreak = false;
-        for(var index = 0; index < numberQuestionsAnswered && !shouldBreak; index++)
-        {
-          Question.findOne({_id: test.questionsID[index]}, (err, currQuestion) => {
-            if(err)
-            {
-              req.flash('errors', { msg: 'Server Error. Please Contact the Site Administrator.'});
+        const numberQuestionsAnswered = user.responses.length;
+        let shouldBreak = false;
+        for (let index = 0; index < numberQuestionsAnswered && !shouldBreak; index++) {
+          Question.findOne({ _id: test.questionsID[index] }, (err, currQuestion) => {
+            if (err) {
+              req.flash('errors', { msg: 'Server Error. Please Contact the Site Administrator.' });
               return res.redirect('/dashboard');
             }
 
             console.log(currQuestion);
-            if(user.responses.pop() === currQuestion.correctAnswers) { user.score++;}
+            if (user.responses.pop() === currQuestion.correctAnswers) { user.score++; }
             console.log(user.score);
 
-            if(user.responses === undefined || user.responses.length == 0)
-            {
+            if (user.responses === undefined || user.responses.length === 0) {
               console.log(user.score);
               shouldBreak = false;
               user.save((err) => {
                 if (err) { return next(err); }
-                req.flash('success', { msg: 'Test submitted successfully!'});
-                res.redirect('/test/' + req.params.testID + '/results');
+                req.flash('success', { msg: 'Test submitted successfully!' });
+                res.redirect(`/test/${req.params.testID}/results`);
               });
             }
           });
@@ -267,25 +235,23 @@ exports.submitTest = (req, res, next) => {
  * Get results page.
  */
 exports.getResultsPage = (req, res, next) => {
-  var ObjectId = require('mongodb').ObjectId;
+  const { ObjectId } = require('mongodb');
   const tID = new ObjectId(req.params.testID);
-  const testQuery = {_id: tID};
-  const userQuery = {_id: req.user.id};
+  const testQuery = { _id: tID };
+  const userQuery = { _id: req.user.id };
 
   User.findOne(userQuery, (err, user) => {
-    if(err)
-    {
-      req.flash('errors', { msg: 'User does not exist :('});
+    if (err) {
+      req.flash('errors', { msg: 'User does not exist :(' });
       return res.redirect('/dashboard');
     }
     console.log(user);
     Test.findOne(testQuery, (err, test) => {
-      if(err)
-      {
-        req.flash('errors', { msg: 'Test does not exist :('});
+      if (err) {
+        req.flash('errors', { msg: 'Test does not exist :(' });
         return res.redirect('/dashboard');
       }
-      res.render('resultsPage', {score: req.score, user: user, test: test});
+      res.render('resultsPage', { score: req.score, user, test });
     });
   });
 };
