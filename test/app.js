@@ -49,13 +49,6 @@ describe('GET /api/lastfm', () => {
   });
 });
 
-describe('GET /api/nyt', () => {
-  it('should return 200 OK', (done) => {
-    request(app)
-      .get('/api/nyt')
-      .expect(200, done);
-  });
-});
 
 describe('GET /api/twilio', () => {
   it('should return 200 OK', (done) => {
@@ -114,7 +107,7 @@ describe('GET /api/upload', () => {
 });
 
 describe('GET /random-url', () => {
-  it('should return 404', (done) => {
+  it('should return 200 OK', (done) => {
     request(app)
       .get('/reset')
       .expect(404, done);
