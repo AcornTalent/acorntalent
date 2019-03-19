@@ -208,6 +208,10 @@ exports.submitTest = (req, res, next) => {
               req.flash('errors', { msg: 'Server Error. Please Contact the Site Administrator.' });
               return res.redirect('/dashboard');
             }
+            if(!currQuestion) {
+              req.flash('errors', { msg: 'Question Not Found.' });
+              return res.redirect('/dashboard');
+            }
 
             console.log(currQuestion);
             if (user.responses.pop() === currQuestion.correctAnswers) { user.score++; }
