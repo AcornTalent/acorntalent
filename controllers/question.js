@@ -65,7 +65,7 @@ exports.submitCurrQuestion = (req, res) => {
     }
 
     if (user.responses === undefined || user.responses.length === 0) {
-      user.responses = []; user.responses.length = 15;
+      user.responses = [];
     }
     Test.findOne(testQuery, (err, test) => {
       if (err) {
