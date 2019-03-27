@@ -65,7 +65,7 @@ exports.submitCurrQuestion = (req, res) => {
     }
 
     if (user.responses === undefined || user.responses.length === 0) {
-      user.responses = []; user.responses.length = 15;
+      user.responses = [];
     }
     Test.findOne(testQuery, (err, test) => {
       if (err) {
@@ -77,17 +77,17 @@ exports.submitCurrQuestion = (req, res) => {
           req.flash('errors', { msg: 'Question does not exist :(' });
           return res.redirect('/dashboard');
         }
-        console.log(`user responses prepush: ${req.body.question}`);
+        if(req.params.qNumber == 0) user.responses.length = 0;
+        console.log(`user responses prepush: ${user.responses}`);
         user.responses.push(req.body.question);
-        console.log(`user responses postpush: ${req.body.question}`);
-        user.responses.length = 15;
+        console.log(`user responses postpush: ${user.responses}`);
         console.log(user.responses);
-        user.save((err) => {
+        User.updateOne(user, user, (err) => {
           if (err) { return next(err); }
 
-          console.log(user.responses);
           const nextQuestion = `/test/${test._id}/${parseInt(req.params.qNumber, 10) + 1}/q/${test.questionsID[parseInt(req.params.qNumber, 10) + 1]}`;
           res.redirect(nextQuestion);
+          console.log(user.responses);
         });
       });
     });
