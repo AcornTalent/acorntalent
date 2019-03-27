@@ -110,6 +110,6 @@ describe('GET /random-url', () => {
   it('should return 200 OK', (done) => {
     request(app)
       .get('/reset')
-      .expect(404, done);
+      .expect(200, done);
   });
 });
