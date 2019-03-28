@@ -94,20 +94,20 @@ exports.addQuestions = (req, res, next) => {
       req.flash('Failed', { msg: 'Test already exists. You may modify the test by making changes and pressing save.' }); // not working fix this
       res.redirect('/create/test');
     }
-    existingTest = new Test({
+    var test = new Test({
       name: req.body.name,
       description: req.body.description
     });
     console.log(req.body);
-    if (existingTest.questionsID === undefined || existingTest.questionsID.length === 0) {
-      existingTest.questionsID = [];
+    if (test.questionsID === undefined || test.questionsID.length === 0) {
+      test.questionsID = [];
       let questionName;
       for (let i = 0; ; i++) {
         questionName = `question${i}`;
         if (!(req.body[questionName] === undefined)) {
           console.log(req.body[questionName]);
           if (req.body[questionName] !== '-1') {
-            existingTest.questionsID.push(req.body[questionName]);
+            test.questionsID.push(req.body[questionName]);
           }
         } else break; // this logic prevents the code from running synchrously
         // despite req.body[questionName] being non existant
@@ -115,7 +115,7 @@ exports.addQuestions = (req, res, next) => {
     } else {
       for (const values in req.body.isAdded) {
         if (!values.equals('notAdded') && equals(questionID, values)) {
-          for (var questionID in existingTest.questionsID) {
+          for (var questionID in test.questionsID) {
             console.log('yay');
             break;
           }
@@ -123,7 +123,8 @@ exports.addQuestions = (req, res, next) => {
         }
       }
     }
-    existingTest.save((err) => {
+    console.log(test.questionsID);
+    test.save((err) => {
       if (err) { return next(err); }
       req.flash('success', { msg: 'Test saved.' });
       res.redirect('/dashboard');
