@@ -88,7 +88,7 @@ exports.addQuestions = (req, res, next) => {
   }
   */
 
-  Test.findOne({ name: req.body.name }, (err, existingTest) => {
+  Test.findOne({ "name": req.body.name }, (err, existingTest) => {
     if (err) { return next(err); }
     if (existingTest) {
       req.flash('Failed', { msg: 'Test already exists. You may modify the test by making changes and pressing save.' }); // not working fix this
