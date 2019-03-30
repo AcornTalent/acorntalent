@@ -164,6 +164,36 @@ exports.addQuestions = (req, res, next) => {
     return next(); */
 };
 
+function scoreTest(test, user, req, callback) {
+  user.score = 0;
+  const numberQuestionsAnswered = user.responses.length;
+  let shouldBreak = false;
+
+  for (let index = 0; index < numberQuestionsAnswered && !shouldBreak; index++) {
+    Question.findOne({ _id: test.questionsID[index] }, (err, currQuestion) => {
+      if (err) {
+        req.flash('errors', { msg: 'Server Error. Please Contact the Site Administrator.' });
+        return res.redirect('/dashboard');
+      }
+      if(!currQuestion) {
+        req.flash('errors', { msg: 'Question Not Found.' });
+        return res.redirect('/dashboard');
+      }
+
+      console.log(currQuestion.correctAnswers + " " + user.responses[index]);
+      if (user.responses[index] === currQuestion.correctAnswers) { user.score++; }
+      console.log(user.score);
+
+      if (user.responses === undefined || user.responses.length === 0) {
+        shouldBreak = true;
+        callback(user);
+      }
+    });
+  }
+
+  callback(user);
+}
+
 /**
  * POST /test/:testID/:qNumber/q/:questionID/submit
  * Submit test.
@@ -177,7 +207,7 @@ exports.submitTest = (req, res, next) => {
   const userQuery = { _id: req.user.id };
 
   User.findOne(userQuery, (err, user) => {
-    if (err) {
+    if (err || !user) {
       req.flash('errors', { msg: 'User does not exist :(' });
       return res.redirect('/login');
     }
@@ -203,32 +233,15 @@ exports.submitTest = (req, res, next) => {
         user.score = 0;
         const numberQuestionsAnswered = user.responses.length;
         let shouldBreak = false;
-        for (let index = 0; index < numberQuestionsAnswered && !shouldBreak; index++) {
-          Question.findOne({ _id: test.questionsID[index] }, (err, currQuestion) => {
-            if (err) {
-              req.flash('errors', { msg: 'Server Error. Please Contact the Site Administrator.' });
-              return res.redirect('/dashboard');
-            }
-            if(!currQuestion) {
-              req.flash('errors', { msg: 'Question Not Found.' });
-              return res.redirect('/dashboard');
-            }
 
-            console.log(currQuestion.correctAnswers + " " + user.responses[index]);
-            if (user.responses[index] === currQuestion.correctAnswers) { user.score++; }
-            console.log(user.score);
-
-            if (user.responses === undefined || user.responses.length === 0) {
-              console.log(user.score);
-              shouldBreak = true;
-              user.save((err) => {
-                if (err) { return next(err); }
-                req.flash('success', { msg: 'Test submitted successfully!' });
-                res.redirect(`/test/${req.params.testID}/results`);
-              });
-            }
+        user = scoreTest(test, user, req, (updatedUser) => {
+          console.log("SCORE" + updatedUser.score);
+          User.updateOne(user, updatedUser, (err) => {
+            if (err) { return next(err); }
+            req.flash('success', { msg: 'Test submitted successfully!' });
+            res.redirect(`/test/${req.params.testID}/results`);
           });
-        }
+        });
       });
     });
   });
