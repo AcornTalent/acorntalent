@@ -220,7 +220,7 @@ exports.submitTest = (req, res, next) => {
 
             if (user.responses === undefined || user.responses.length === 0) {
               console.log(user.score);
-              shouldBreak = false;
+              shouldBreak = true;
               user.save((err) => {
                 if (err) { return next(err); }
                 req.flash('success', { msg: 'Test submitted successfully!' });
