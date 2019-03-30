@@ -214,7 +214,7 @@ exports.submitTest = (req, res, next) => {
               return res.redirect('/dashboard');
             }
 
-            console.log(currQuestion);
+            console.log(currQuestion.correctAnswers + " " + user.responses[user.responses.length-1]);
             if (user.responses.pop() === currQuestion.correctAnswers) { user.score++; }
             console.log(user.score);
 
