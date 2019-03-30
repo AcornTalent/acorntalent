@@ -214,8 +214,8 @@ exports.submitTest = (req, res, next) => {
               return res.redirect('/dashboard');
             }
 
-            console.log(currQuestion.correctAnswers + " " + user.responses[user.responses.length-1]);
-            if (user.responses.pop() === currQuestion.correctAnswers) { user.score++; }
+            console.log(currQuestion.correctAnswers + " " + user.responses[index]);
+            if (user.responses[index] === currQuestion.correctAnswers) { user.score++; }
             console.log(user.score);
 
             if (user.responses === undefined || user.responses.length === 0) {
