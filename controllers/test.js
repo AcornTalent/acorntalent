@@ -27,7 +27,7 @@ exports.getCurrTest = (req, res) => {
       return res.redirect('/dashboard');
     } */
     console.log(test);
-    res.render('currTest', { test });
+    res.render('currTest', { test: test, title: test.name });
   });
 };
 
@@ -37,7 +37,7 @@ exports.getCurrTest = (req, res) => {
 */
 exports.getCreateTest = (req, res) => {
   Question.find((err, questions) => {
-    res.render('createTest', { questions });
+    res.render('createTest', { questions: questions, title: "New Test" });
   });
 };
 
@@ -186,12 +186,21 @@ function scoreTest(test, user, req, callback) {
 
       if (user.responses === undefined || user.responses.length === 0) {
         shouldBreak = true;
-        callback(user);
       }
     });
   }
 
-  callback(user);
+  var alpha = 0;
+  while(alpha < 1.1)
+  {
+    alpha += 0.000000001;
+    if(alpha > 1)
+    {
+      console.log("callback initiated");
+      callback(user);
+      break;
+    }
+  }
 }
 
 /**
@@ -269,7 +278,7 @@ exports.getResultsPage = (req, res, next) => {
         req.flash('errors', { msg: 'Test does not exist :(' });
         return res.redirect('/dashboard');
       }
-      res.render('resultsPage', { score: req.score, user, test });
+      res.render('resultsPage', { score: req.score, user: user, test: test, title: ("Results for " + test.name) });
     });
   });
 };

@@ -160,6 +160,9 @@ app.get('/create/question', passportConfig.isAuthenticated, passportConfig.isBus
 // by default, isBusiness in user schema is set to false
 app.post('/create/question', passportConfig.isAuthenticated, passportConfig.isBusiness, questionController.addQuestion);
 
+// Event related pages
+app.get('/cppibxacorntalent', homeController.getCPPIBPage);
+
 
 /**
  * API examples routes.

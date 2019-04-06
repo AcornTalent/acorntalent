@@ -23,7 +23,7 @@ exports.getQuestionByID = (req, res) => {
  * Create a new question
 */
 exports.getCreateQuestion = (req, res) => {
-  res.render('createQuestion', {});
+  res.render('createQuestion', { title: "New Question" });
 };
 
 /**
@@ -44,7 +44,7 @@ exports.getCurrQuestion = (req, res) => {
         return res.redirect('/dashboard');
       }
       console.log(test + question);
-      res.render('currQuestion', { qNumber: req.params.qNumber, question, test });
+      res.render('currQuestion', { qNumber: req.params.qNumber, question, test, title: test.name });
     });
   });
 };

@@ -37,3 +37,13 @@ exports.getAboutPage = (req, res) => {
     title: 'About Us'
   });
 };
+
+/**
+ * GET /cppibxacorntalent
+ * Night with CPPIB page.
+ */
+exports.getCPPIBPage = (req, res) => {
+  res.render('cppib', {
+    title: 'Night with CPPIB'
+  });
+};
