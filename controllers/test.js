@@ -168,6 +168,7 @@ function scoreTest(test, user, req, callback) {
   user.score = 0;
   const numberQuestionsAnswered = user.responses.length;
   let shouldBreak = false;
+  var numberQuestionsProcessed = 0;
 
   for (let index = 0; index < numberQuestionsAnswered && !shouldBreak; index++) {
     Question.findOne({ _id: test.questionsID[index] }, (err, currQuestion) => {
@@ -188,11 +189,12 @@ function scoreTest(test, user, req, callback) {
         shouldBreak = true;
       }
 
-      if(index == user.responses.length - 1)
+      if(numberQuestionsProcessed == user.responses.length - 1)
       {
         console.log("callback initiated");
         callback(user);
       }
+      numberQuestionsProcessed++;
     });
   }
 }
