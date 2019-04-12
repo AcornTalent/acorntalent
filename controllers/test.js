@@ -187,19 +187,13 @@ function scoreTest(test, user, req, callback) {
       if (user.responses === undefined || user.responses.length === 0) {
         shouldBreak = true;
       }
-    });
-  }
 
-  var alpha = 0;
-  while(alpha < 1.1)
-  {
-    alpha += 0.000000001;
-    if(alpha > 1)
-    {
-      console.log("callback initiated");
-      callback(user);
-      break;
-    }
+      if(index == user.responses.length - 1)
+      {
+        console.log("callback initiated");
+        callback(user);
+      }
+    });
   }
 }
 
@@ -244,8 +238,9 @@ exports.submitTest = (req, res, next) => {
         let shouldBreak = false;
 
         user = scoreTest(test, user, req, (updatedUser) => {
-          console.log("SCORE" + updatedUser.score);
-          User.updateOne(user, updatedUser, (err) => {
+          console.log("SCORE: " + updatedUser.score);
+          console.log(updatedUser);
+          User.updateOne({_id: updatedUser._id}, updatedUser, (err) => {
             if (err) { return next(err); }
             req.flash('success', { msg: 'Test submitted successfully!' });
             res.redirect(`/test/${req.params.testID}/results`);
