@@ -7572,6 +7572,15 @@ figure {
   background-image: url('../images/erica-min.jpg');
 }
 
+.team-member-avatar._richard {
+  margin-right: 30px;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  background-image: url('../images/Richard-min.jpg');
+}
+
 .team-member-avatar._helen {
   margin-right: 30px;
   -webkit-box-flex: 0;
